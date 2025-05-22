@@ -1,1 +1,1 @@
-# GCSE
+# Enhancing Unsupervised Sentence Embeddings via Knowledge-Driven Data Augmentation and Gaussian-Decayed Contrastive Learning
