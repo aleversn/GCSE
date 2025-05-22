@@ -1,0 +1,12 @@
+torch
+torchvision
+torchaudio
+transformers
+scipy
+prettytable
+scikit-learn
+numpy==1.23.5
+json_repair
+sentence_transformers
+faiss-gpu
+tiktoken

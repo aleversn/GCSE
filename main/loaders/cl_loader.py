@@ -8,7 +8,7 @@ from torch.utils.data import Dataset
 
 
 class CLDataset(Dataset):
-    def __init__(self, tokenizer, file_name, max_seq_len=256, shuffle=True, is_enhance_feature=False, enhance_feature_lang='en', enhance_dup=0.05, enhance_stop_words=None, is_eval=False):
+    def __init__(self, tokenizer, file_name, max_seq_len=256, shuffle=True, is_enhance_feature=True, enhance_feature_lang='en', enhance_dup=0.05, enhance_stop_words=None, is_eval=False):
         self.tokenizer = tokenizer
         self.max_seq_len = max_seq_len
         self.is_eval = is_eval
