@@ -162,9 +162,7 @@ class Trainer():
             os.makedirs(f'./save_model/{dir}')
         model_self = self.model.module if hasattr(
             self.model, 'module') else self.model
-        # bert_model = model_self.model
-        # bert_model.save_pretrained(
-        #     f'./save_model/{dir}/bert_{current_step}')
+
         model_self.save_pretrained(
             f'./save_model/{dir}/simcse{prefix}_{current_step}', safe_serialization=False)
         self.analysis.append_model_record(current_step)
@@ -205,11 +203,6 @@ class Trainer():
                     p = torch.cat(p, dim=0)
                 else:
                     p = torch.diag(logits) * self.temp
-                # print(logits[29] * self.temp)
-                # text1 = self.tokenizer.decode(it['input_ids'][29][0], skip_special_tokens=True)
-                # text2 = self.tokenizer.decode(it['input_ids'][29][1], skip_special_tokens=True)
-                # print(text1, text2)
-                # print(0 / 0)
 
                 eval_loss += loss.data.item()
                 eval_count += 1

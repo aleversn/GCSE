@@ -60,8 +60,7 @@ class SBert(PreTrainedModel):
             sum_mask = torch.clamp(sum_mask, min=1e-9)
             output_vectors.append(sum_embeddings / sum_mask)
         output_vector = torch.cat(output_vectors, 1)
-        # print('cls_token', cls_token.shape, 'input_mask_expanded', input_mask_expanded.shape, 'sum_mask', sum_mask.shape)
-        # print(0 / 0)
+        
         return output_vector
 
     def forward(self,

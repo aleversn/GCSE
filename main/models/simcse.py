@@ -20,13 +20,7 @@ def load_from_pretrained(self, from_pretrained):
         if exists:
             bert_state_dict[_key] = val
     self.model.load_state_dict(bert_state_dict, strict=False)
-    # for key, val in pretrained_state_dict.items():
-    #     for name, module in self.model.named_modules():
-    #         if name not in ['', 'embeddings']:
-    #             if key.endswith(name + '.weight'):
-    #                 module.weight.data = val
-    #             elif key.endswith(name + '.bias'):
-    #                 module.bias.data = val
+    
     self.load_state_dict(pretrained_state_dict, strict=False)
 
 
@@ -116,7 +110,6 @@ def cl_forward(self,
     if num_sent == 3:
         z3 = pooler_output[:, 2]
 
-    # 原始是bs * bs 最终得到bs * 1的数值相乘矩阵, 这里通过改成bs * 1 * 1 * bs得到bs * bs的数值相乘矩阵
     cos_sim = self.sim(z1.unsqueeze(1), z2.unsqueeze(0))
     # Hard negative
     if num_sent >= 3:
@@ -130,7 +123,7 @@ def cl_forward(self,
     if num_sent == 3:
         # Note that weights are actually logits of weights
         z3_weight = self.hard_negative_weight
-        # 画一个前cos_sim.size(-1)列为0, 后z1_z3_cos.size(-1)列对角线为0 + z3_weight的矩阵
+        
         weights = torch.tensor(
             [[0.0] * (cos_sim.size(-1) - z1_z3_cos.size(-1)) + [0.0] * i + [z3_weight] + [
                 0.0] * (z1_z3_cos.size(-1) - i - 1) for i in range(z1_z3_cos.size(-1))]

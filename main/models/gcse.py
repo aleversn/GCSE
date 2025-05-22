@@ -21,13 +21,6 @@ def load_from_pretrained(self, from_pretrained):
         if exists:
             bert_state_dict[_key] = val
     self.model.load_state_dict(bert_state_dict, strict=False)
-    # for key, val in pretrained_state_dict.items():
-    #     for name, module in self.model.named_modules():
-    #         if name not in ['', 'embeddings']:
-    #             if key.endswith(name + '.weight'):
-    #                 module.weight.data = val
-    #             elif key.endswith(name + '.bias'):
-    #                 module.bias.data = val
     self.load_state_dict(pretrained_state_dict, strict=False)
 
 
@@ -121,7 +114,6 @@ def cl_forward(self,
     if num_sent == 3:
         z3 = pooler_output[:, 2]
 
-    # 原始是bs * bs 最终得到bs * 1的数值相乘矩阵, 这里通过改成bs * 1 * 1 * bs得到bs * bs的数值相乘矩阵
     z1_z2_cos = self.sim(z1.unsqueeze(1), z2.unsqueeze(0))
     # Hard negative
     if num_sent >= 3:
@@ -138,21 +130,19 @@ def cl_forward(self,
         # Note that weights are actually logits of weights
         z3_weight = torch.diag(z1_z3_cos).detach() #
         neg_labels = torch.diag(base_cos_sim[:,-z1_z3_cos.size(-1):]).detach() #
-        z3_weight = -z3_weight * torch.exp(- (z3_weight - neg_labels)**2 / (2 * self.alpha**2))
-        # z1_z2_weight = z1_z2_cos.detach()
-        # pos_labels = base_cos_sim[:, :z1_z2_cos.size(-1)].detach()
-        # z1_z2_weight = -z1_z2_weight * torch.exp(- (z1_z2_weight - pos_labels)**2 / (2 * self.beta**2))
-        # indices = torch.arange(z1_z2_weight.size(0))
-        # z1_z2_weight[indices, indices] = 0
-        # 画一个前cos_sim.size(-1)列为0, 后z1_z3_cos.size(-1)列对角线为0 + z3_weight的矩阵
+        diff = z3_weight - neg_labels
+        # z3_weight = -z3_weight * torch.exp(- (z3_weight - neg_labels)**2 / (2 * self.alpha**2))
+        z3_weight = torch.where(
+            diff > 0,  # z3_weight > neg_labels
+            0,  #  -z3_weight
+            -z3_weight * torch.exp(-(diff**2) / (2 * self.alpha**2))  # 
+        )
+        
         weights = torch.tensor(
             [[0.0] * (cos_sim.size(-1) - z1_z3_cos.size(-1)) + [0.0] * i + [z3_weight[i]] + [
                 0.0] * (z1_z3_cos.size(-1) - i - 1) for i in range(z1_z3_cos.size(-1))]
         ).to(self.device)
-        # weights = torch.tensor(
-        #     [z1_z2_weight[i].tolist() + [0.0] * i + [z3_weight[i]] + [
-        #         0.0] * (z1_z3_cos.size(-1) - i - 1) for i in range(z1_z3_cos.size(-1))]
-        # ).to(self.device)
+
         cos_sim = cos_sim + weights
 
     loss = loss_fct(cos_sim, labels)

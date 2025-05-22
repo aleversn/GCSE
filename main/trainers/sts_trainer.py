@@ -179,9 +179,7 @@ class Trainer():
             os.makedirs(f'./save_model/{dir}')
         model_self = self.model.module if hasattr(
             self.model, 'module') else self.model
-        # bert_model = model_self.model
-        # bert_model.save_pretrained(
-        #     f'./save_model/{dir}/bert_{current_step}')
+        
         model_self.save_pretrained(
             f'./save_model/{dir}/simcse_{current_step}')
         self.analysis.append_model_record(current_step)

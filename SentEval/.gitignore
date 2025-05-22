@@ -13,4 +13,5 @@ __pycache__/
 
 # data files
 data/senteval_data*
-data/downstream/
+data/downstream/**/*
+!data/downstream/download_dataset.sh
