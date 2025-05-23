@@ -1,14 +1,31 @@
 ## Enhancing Unsupervised Sentence Embeddings via Knowledge-Driven Data Augmentation and Gaussian-Decayed Contrastive Learning
 
-## Overview
-
-Current unsupervised sentence embedding methods face two critical limitations: (1) *low diversity* in augmented data due to LLMs' tendency to generate generic paraphrases while neglecting fine-grained knowledge (e.g., entities/quantities), and (2) *noisy training signals* from false negatives that distort the semantic space. To address this, we proposes a **knowledge-guided synthesis pipeline** where domain entities are first extracted to construct a lightweight knowledge graph, steering LLMs to generate semantically rich variations of input sentences. For noise suppression, we design a self-correcting contrastive learning mechanism: a Gaussian-decayed gradient function automatically identifies potential false negatives during training and temporarily attenuates their gradient updates, allowing the model to first consolidate reliable patterns before refining ambiguous cases.
-
-
 <p align="center">
     <img src="./docs/assets/method.png" alt="pipeline" width="80%" />
 </p>
 
+## Overview
+
+Current unsupervised sentence embedding methods face two critical limitations: (1) *low diversity* in augmented data due to LLMs' tendency to generate generic paraphrases while neglecting fine-grained knowledge (e.g., entities/quantities), and (2) *noisy training signals* from false negatives that distort the semantic space. To address this, we proposes a **knowledge-guided synthesis pipeline** where domain entities are first extracted to construct a lightweight knowledge graph, steering LLMs to generate semantically rich variations of input sentences. For noise suppression, we design a self-correcting contrastive learning mechanism: a Gaussian-decayed gradient function automatically identifies potential false negatives during training and temporarily attenuates their gradient updates, allowing the model to first consolidate reliable patterns before refining ambiguous cases.
+
+## Quick Links
+
+  - [Model Checkpoints](#model-checkpoints)
+  - [Data Synthesis](#⚙️-installation-guide)
+  - [Train GCSE](#🔥-run-sentence-embedding-models)
+  - [Citation](#📚-citation)
+
+## Model Checkpoints
+
+We release our model checkpoints in huggingface as listed below:
+| Model                                                                             | Avg. STS |
+| :-------------------------------------------------------------------------------- | :------: |
+| [aleversn/GCSE-BERT-base](https://huggingface.co/aleversn/GCSE-BERT-base)         |  81.98   |
+| [aleversn/GCSE-BERT-large](https://huggingface.co/aleversn/GCSE-BERT-large)       |  83.07   |
+| [aleversn/GCSE-RoBERTa-base](https://huggingface.co/aleversn/GCSE-RoBERTa-base)   |  82.12   |
+| [aleversn/GCSE-RoBERTa-large](https://huggingface.co/aleversn/GCSE-RoBERTa-large) |  83.82   |
+
+> Some results may differ from those reported in the paper due to the regeneration of the dataset.
 
 ## GCSE
 
