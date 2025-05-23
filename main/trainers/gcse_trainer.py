@@ -179,6 +179,8 @@ class Trainer():
         
         model_self.save_pretrained(
             f'./save_model/{dir}/GCSE{prefix}_{current_step}', safe_serialization=False)
+        self.tokenizer.save_pretrained(
+            f'./save_model/{dir}/GCSE{prefix}_{current_step}')
         self.analysis.append_model_record(current_step)
         return current_step
 

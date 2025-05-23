@@ -8,7 +8,7 @@ cmd_args = True
 #
 parser = ArgumentParser()
 parser.add_argument('--file_dir', default='../dataset/mix', help='file name')
-parser.add_argument('--output_name', default='__combine.txt', help='file name of the dataset')
+parser.add_argument('--output_name', default='combine', help='file name of the dataset')
 
 if not cmd_args:
     args = parser.parse_args([]) # You can directly set above parameters in the default.
@@ -28,7 +28,7 @@ for file_name in files:
         ori_data = f.readlines()
     result += ori_data
 
-with open(os.path.join(SAVE_DIR, '__combine.txt'), mode='w+') as f:
+with open(os.path.join(SAVE_DIR, f'__{args.output_name}.txt'), mode='w+') as f:
     for item in result:
         f.write(item.strip() + '\n')
 

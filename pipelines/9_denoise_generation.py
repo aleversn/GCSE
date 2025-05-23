@@ -18,7 +18,6 @@ parser.add_argument('--n_gpu', default=1, help='n_gpu')
 parser.add_argument('--file_dir', default='../dataset/mix', help='file name')
 parser.add_argument('--file_name', default='__combine.txt', help='file name of the dataset')
 parser.add_argument('--save_type_name', default='GLM4', help='the prefix name of save dir (usually is the LLM name)')
-parser.add_argument('--tokenizer_path', default='/home/lpc/models/bert-base-uncased/', help='tokenizer path')
 parser.add_argument('--model_from_pretrained', default='/home/lpc/models/bert-base-uncased/', help='model from pretrained')
 parser.add_argument('--alpha', default=16, help='for filtering false positives')
 parser.add_argument('--beta', default=15, help='for filtering false negatives')
@@ -32,7 +31,7 @@ else:
 
 os.environ["CUDA_VISIBLE_DEVICES"] = str(args.n_gpu)
 
-tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_path)
+tokenizer = AutoTokenizer.from_pretrained(args.model_from_pretrained)
 pred = Predictor(tokenizer=tokenizer,
                   from_pretrained=args.model_from_pretrained,
                   max_seq_len=int(args.max_seq_len),

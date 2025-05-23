@@ -1,7 +1,7 @@
-torch
+torch>=2.0
 torchvision
 torchaudio
-transformers
+transformers>=4.44.1
 scipy
 prettytable
 scikit-learn
@@ -10,3 +10,4 @@ json_repair
 sentence_transformers
 faiss-gpu
 tiktoken
+openai
