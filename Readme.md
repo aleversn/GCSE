@@ -440,11 +440,25 @@ trainer.eval(0, is_eval=True)
 
 ## 📚 Citation
 ```bibtex
-@inproceedings{lai2025gcse,
-      title={Enhancing Unsupervised Sentence Embeddings via Knowledge-Driven Data Augmentation and Gaussian-Decayed Contrastive Learning}, 
-      author={Peichao Lai and Zhengfeng Zhang and Wentao Zhang and Fangcheng Fu and Bin Cui},
-      year={2025},
-      booktitle={Proceedings of the 63rd Annual Meeting of the Association for Computational
-                  Linguistics, {ACL} 2025}
+@inproceedings{lai-etal-2025-enhancing,
+    title = "Enhancing Unsupervised Sentence Embeddings via Knowledge-Driven Data Augmentation and {G}aussian-Decayed Contrastive Learning",
+    author = "Lai, Peichao  and
+      Zhang, Zhengfeng  and
+      Zhang, Wentao  and
+      Fu, Fangcheng  and
+      Cui, Bin",
+    editor = "Che, Wanxiang  and
+      Nabende, Joyce  and
+      Shutova, Ekaterina  and
+      Pilehvar, Mohammad Taher",
+    booktitle = "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2025",
+    address = "Vienna, Austria",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.acl-long.244/",
+    pages = "4919--4940",
+    ISBN = "979-8-89176-251-0",
+    abstract = "Recently, using large language models (LLMs) for data augmentation has led to considerable improvements in unsupervised sentence embedding models. However, existing methods encounter two primary challenges: limited data diversity and high data noise. Current approaches often neglect fine-grained knowledge, such as entities and quantities, leading to insufficient diversity. Besides, unsupervised data frequently lacks discriminative information, and the generated synthetic samples may introduce noise. In this paper, we propose a pipeline-based data augmentation method via LLMs and introduce the Gaussian-decayed gradient-assisted Contrastive Sentence Embedding (GCSE) model to enhance unsupervised sentence embeddings. To tackle the issue of low data diversity, our pipeline utilizes knowledge graphs (KGs) to extract entities and quantities, enabling LLMs to generate more diverse samples. To address high data noise, the GCSE model uses a Gaussian-decayed function to limit the impact of false hard negative samples, enhancing the model{'}s discriminative capability. Experimental results show that our approach achieves state-of-the-art performance in semantic textual similarity (STS) tasks, using fewer data samples and smaller LLMs, demonstrating its efficiency and robustness across various models."
 }
 ```
